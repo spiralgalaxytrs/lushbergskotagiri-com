@@ -1128,7 +1128,31 @@ s0.parentNode.insertBefore(s1,s0);
 })();
 </script>
 <!--End of Tawk.to Script-->
+<script>
+  
+const sendMail=async()=>{
+var name = document.getElementById('name').value;
+var email = document.getElementById('email').value;
+var mobile = document.getElementById('mobile').value;
+var message= document.getElementById('message').value
+const result = await axios({
+  method: 'post',
+  url: 'https://mail.thereciprocalsolutions.com/lushbergskotagiri/contact-us',
+  data: {
+    to:"lushbergskotagiri@gmail.com",
+    name: name,
+    website:"Lushbergs Kotagiri",
+    to: "lushbergskotagiri@gmail.com",
+    email:email,
+    phone:mobile,
+    message:message
+  }
+});
+console.log(result.data);
+document.getElementById('result').innerHTML=result.data.message
+    }
 
+</script>
     </body>
 
 </html>
