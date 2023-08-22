@@ -1031,7 +1031,7 @@
           </div>
         </div>
 
-        <form action="webformmailer.php" method="post" role="form" class="php-email-form">
+        <form action="https://mail.thereciprocalsolutions.com/lushbergskotagiri/contact-us" method="post" role="form" class="php-email-form">
           <div class="form-row">
             <div class="col-md-6 form-group">
               <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
@@ -1130,28 +1130,6 @@ s0.parentNode.insertBefore(s1,s0);
 <!--End of Tawk.to Script-->
 <script>
   
-const sendMail=async()=>{
-var name = document.getElementById('name').value;
-var email = document.getElementById('email').value;
-var mobile = document.getElementById('mobile').value;
-var message= document.getElementById('message').value
-const result = await axios({
-  method: 'post',
-  url: 'https://mail.thereciprocalsolutions.com/lushbergskotagiri/contact-us',
-  data: {
-    to:"lushbergskotagiri@gmail.com",
-    name: name,
-    website:"Lushbergs Kotagiri",
-    to: "lushbergskotagiri@gmail.com",
-    email:email,
-    phone:mobile,
-    message:message
-  }
-});
-console.log(result.data);
-document.getElementById('result').innerHTML=result.data.message
-    }
-
 </script>
     </body>
 
