@@ -1031,7 +1031,7 @@
           </div>
         </div>
 
-        <form action="https://mail.thereciprocalsolutions.com/lushbergskotagiri/contact-us" method="post" role="form" class="php-email-form">
+        <form action="https://mail.thereciprocalsolutions.com/lushbergskotagiri/contact-us" method="post" role="form" class="php-email-form" id="contactForm">
           <div class="form-row">
             <div class="col-md-6 form-group">
               <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
@@ -1108,7 +1108,74 @@
   <script src="assets/js/main.js"></script>
   <script src="assets/js/easyResponsiveTabs.js"></script>
     <script src="assets/js/nembed.js.js"></script>
-
+    <script>
+      document.getElementById("contactForm").addEventListener("submit", function(event) {
+         event.preventDefault(); // Prevent default form submission
+     
+         // Collect form data
+         let formData = new FormData(this);
+        let jsonData = {
+             "Contact Name": formData.get("name"),
+             "Mobile Number": formData.get("mobile"),
+             "Email Id": formData.get("email"),
+             "Project Name": "Lushbergskotagiri",
+             "Message": formData.get("message"),
+             "Lead Source": "Website",
+              "Lead Date": formatLeadDate()
+         };
+      function formatLeadDate() {
+             let date = new Date();
+             let day = date.getDate().toString().padStart(2, '0');
+             let month = (date.getMonth() + 1).toString().padStart(2, '0');
+             let year = date.getFullYear();
+             return `${day}/${month}/${year}`;
+         }
+         // Convert formData to URL-encoded format
+         let urlEncodedData = new URLSearchParams(jsonData).toString();
+     
+         // Add additional fields to the URL-encoded data
+         urlEncodedData += '&Lead Source=Website'; // Append Lead Source
+         urlEncodedData += '&Lead Date=' + encodeURIComponent(new Date().toLocaleDateString('en-GB')); // Append Lead Date
+     
+         // URL to which the POST request will be sent
+         let url = 'https://apps.cratiocrm.com/Customize/Webhooks/webhook.php?id=117722';
+     
+         // Initialize XMLHttpRequest object
+         let xhr = new XMLHttpRequest();
+     
+         // Set up the request
+         xhr.open('POST', url, true);
+         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+     
+         // Define what happens on successful data submission
+         xhr.onload = function () {
+             if (xhr.status >= 200 && xhr.status < 300) {
+                 // Request was successful
+                 console.log('Response:', xhr.responseText);
+                 // Optionally, show a success message or redirect the user
+                 document.querySelector('.sent-message').style.display = 'block';
+                 document.querySelector('.error-message').style.display = 'none';
+             } else {
+                 // Request failed
+                 console.error('Request failed with status:', xhr.status, xhr.statusText);
+                 // Optionally, show an error message to the user
+                 //document.querySelector('.error-message').style.display = 'block';
+                 document.querySelector('.sent-message').style.display = 'none';
+             }
+         };
+     
+         // Handle network errors
+         xhr.onerror = function () {
+             console.error('Network request failed');
+             // Optionally, show an error message to the user
+             //document.querySelector('.error-message').style.display = 'block';
+             document.querySelector('.sent-message').style.display = 'none';
+         };
+     
+         // Send the request
+         xhr.send(urlEncodedData);
+     });
+       </script>
  <script type="text/javascript">
   
   $ (function() {
